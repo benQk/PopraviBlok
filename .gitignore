@@ -1,0 +1,32 @@
+# Odvisnosti
+node_modules/
+
+# Rezultat gradnje
+dist/
+build/
+*.tsbuildinfo
+
+# Okoljske spremenljivke in skrivnosti (ključi, gesla)
+.env
+.env.*
+!.env.example
+*.local
+supabase/functions/.env
+
+# Supabase CLI (lokalno stanje)
+supabase/.branches/
+supabase/.temp/
+
+# Dnevniki in testna poročila
+*.log
+npm-debug.log*
+coverage/
+
+# Urejevalniki
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Operacijski sistem
+.DS_Store
+Thumbs.db
