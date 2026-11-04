@@ -54,7 +54,6 @@
 
 ---
 
-!! DODAJ NOVE KOMPLEKSNE FUNKCIONALNOSTI
 
 ## Predvidene funkcionalnosti
 
