@@ -1,6 +1,7 @@
 create table profiles (
   id uuid primary key references auth.users on delete cascade,
   full_name text not null default '',
+  email text not null,
   is_admin boolean not null default false,
   created_at timestamptz not null default now()
 );
