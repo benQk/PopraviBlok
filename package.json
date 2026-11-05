@@ -1,0 +1,27 @@
+{
+  "name": "popraviblok",
+  "version": "1.0.0",
+  "description": "Spletna aplikacija za prijavo, obravnavo in sledenje težavam v večstanovanjskih blokih (pokvarjena luč, puščanje, okvara dvigala ...). Stanovalci težave prijavijo, upravnik jim določi prioriteto in jih dodeli serviserju, serviser jih odpravi, stanovalec pa odpravo potrdi. Vsaka sprememba se zapiše v zgodovino, zato je vedno jasno, kdo je kaj naredil in kdaj.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benQk/PopraviBlok.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/benQk/PopraviBlok/issues"
+  },
+  "homepage": "https://github.com/benQk/PopraviBlok#readme",
+  "devDependencies": {
+    "supabase": "^3.0.0"
+  }
+}

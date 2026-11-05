@@ -27,3 +27,26 @@ Stanovalec, upravnik, serviser in administrator. Vloge so vezane na članstvo v 
 | [05 – Uporabniške zgodbe](docs/05-uporabniske-zgodbe.md) | Zgodbe z acceptance criteria |
 | [05 – Wireframes](docs/05-wireframes.md) | Osnutki zaslonov |
 | [Arhitekturne odločitve (ADR)](docs/adr/) | Utemeljitve ključnih odločitev |
+
+
+## Lokalni zagon
+```bash
+npm install
+npx supabase start
+npx supabase db reset
+cp frontend/.env.example frontend/.env.local   # vnesi VITE_SUPABASE_URL in ANON_KEY iz `npx supabase status`
+cd frontend && npm install && npm run dev      # http://localhost:5173
+```
+### Zahteve
+- Node.js 20+
+- Docker (zagnan)
+- Git
+
+### Administrator
+Registriraj se v aplikaciji, v Supabase Studiu (http://localhost:54323) nastavi `profiles.is_admin = true`.
+
+### Struktura
+`/frontend`, `/supabase` (migracije, seed, config), `/docs`
+
+### Delovni proces
+GitHub Project (Board): To Do → Doing → Done: <povezava>
