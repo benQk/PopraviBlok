@@ -4,6 +4,8 @@ import { useMyBuildingState } from '../hooks/useMyBuildingState';
 import Modal from '../components/Modal';
 import BuildingRequestForm from '../components/BuildingRequestForm';
 import './home.css';
+import { Link } from 'react-router-dom';
+import { useIsAdmin } from '../hooks/useIsAdmin';
 
 type StatusItem = { key: string; tone: 'pending' | 'ok' | 'rejected'; text: string; code?: string };
 
@@ -12,6 +14,8 @@ export default function Home() {
   const [modal, setModal] = useState<'join' | 'request' | null>(null);
 
   const items: StatusItem[] = [];
+
+  const { isAdmin } = useIsAdmin();
 
   for (const b of requests) {
     if (b.status === 'PENDING')
@@ -45,6 +49,7 @@ export default function Home() {
           <h1>Dobrodošli, {fullName || 'uporabnik'}</h1>
           {!hasActive && <p>Za začetek izberite, kaj želite storiti.</p>}
         </div>
+        {isAdmin && <Link to="/admin">Administracija</Link>}
         <button onClick={() => supabase.auth.signOut()}>Odjava</button>
       </header>
 
