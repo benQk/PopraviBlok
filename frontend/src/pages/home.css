@@ -31,3 +31,20 @@
 .modal-form input { padding: .5rem; font: inherit; }
 .modal-form button { padding: .75rem; font: inherit; cursor: pointer; }
 .field-error { color: #c0392b; font-size: .85rem; }
+
+.slider-handle { position: fixed; right: 0; top: 50%; transform: translateY(-50%); padding: 1rem .6rem; border: 2px solid currentColor; border-right: 0; background: Canvas; color: CanvasText; font: inherit; cursor: pointer; writing-mode: vertical-rl; z-index: 5; }
+.slider { position: fixed; top: 0; right: 0; bottom: 0; width: min(520px, 100vw); padding: 1.25rem; overflow-y: auto; background: Canvas; color: CanvasText; border-left: 2px solid currentColor; transform: translateX(100%); transition: transform .3s ease; z-index: 6; }
+.slider-open { transform: translateX(0); }
+.slider-head { display: flex; justify-content: space-between; align-items: center; }
+.slider-head h2 { margin: 0; }
+.slider-head button { font: inherit; cursor: pointer; }
+.slider-building { opacity: .8; margin: .25rem 0 1rem; }
+.slider select { padding: .4rem; font: inherit; margin: .75rem 0; width: 100%; }
+.slider .req-list { margin-top: 1rem; }
+.slider-row { display: grid; grid-template-columns: 1fr auto; gap: .5rem 1rem; align-items: center; padding: .75rem; border: 2px solid currentColor; }
+.slider-row .req-actions { grid-column: 1 / -1; }
+.slider .req-list, .slider .req-main, .slider .req-meta { min-width: 0; }
+.slider .req-main, .slider .req-meta { display: flex; flex-direction: column; gap: .15rem; overflow-wrap: anywhere; }
+.slider .req-meta { font-size: .85rem; opacity: .85; }
+.slider .req-actions { display: flex; gap: .5rem; }
+.slider .req-actions button { padding: .4rem .8rem; font: inherit; cursor: pointer; }
