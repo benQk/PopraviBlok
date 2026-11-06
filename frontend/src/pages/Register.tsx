@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
-import './auth.css';
+import AuthShell from '../components/AuthShell';
 
 export default function Register() {
   const { session } = useAuth();
@@ -31,34 +31,36 @@ export default function Register() {
     else setInfo('Poslali smo vam potrditveno e-pošto.');
   }
 
-  return (
-    <main className="auth">
-      <h2 className="auth-title">Registracija</h2>
-      <div className="auth-logo" aria-hidden />
-      <h1 className="auth-brand">POPRAVIBLOK</h1>
-
+ return (
+    <AuthShell
+      title="Registracija"
+      subtitle="Ustvarite račun in začnite."
+      footer={<>
+        <p>Že imate račun?</p>
+        <Link to="/login" className="btn btn-block">Prijava</Link>
+      </>}
+    >
       <form onSubmit={onSubmit}>
         <label>E-pošta
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                 required autoComplete="email" />
+                required autoComplete="email" />
         </label>
         <label>Polno ime
           <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)}
-                 required autoComplete="name" />
+                required autoComplete="name" />
         </label>
         <label>Geslo
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                 required minLength={6} autoComplete="new-password" />
+                required minLength={6} autoComplete="new-password" />
         </label>
 
         {error && <p className="auth-error" role="alert">{error}</p>}
         {info && <p className="auth-info">{info}</p>}
-        <button type="submit" disabled={busy}>{busy ? 'Registriram…' : 'Registracija'}</button>
+        <button type="submit" className="btn btn-primary btn-block" disabled={busy}>
+          {busy ? 'Registriram…' : 'Registracija'}
+        </button>
       </form>
-
-      <hr />
-      <p className="auth-switch">Že imate račun?</p>
-      <Link to="/login" className="auth-link-button">Prijava</Link>
-    </main>
+    </AuthShell>
   );
 }
+

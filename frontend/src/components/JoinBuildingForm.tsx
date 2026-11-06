@@ -44,7 +44,7 @@ export default function JoinBuildingForm({ onDone }: { onDone: () => void }) {
         {errors.apartment && <span className="field-error">{errors.apartment}</span>}
       </label>
       {errors.form && <p className="field-error" role="alert">{errors.form}</p>}
-      <button type="submit" disabled={busy}>{busy ? 'Pošiljam…' : 'Pošlji prošnjo'}</button>
+      <button className="btn btn-primary btn-block" type="submit" disabled={busy}>{busy ? 'Pošiljam…' : 'Pošlji prošnjo'}</button>
     </form>
   );
 }

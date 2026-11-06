@@ -1,12 +1,12 @@
-.auth { max-width: 380px; margin: 0 auto; padding: 2rem 1rem; display: flex; flex-direction: column; align-items: stretch; }
-.auth-title { font-size: 1rem; text-decoration: underline; font-weight: 400; }
-.auth-logo { width: 120px; height: 120px; border: 2px solid currentColor; border-radius: 50%; margin: 1rem auto; }
-.auth-brand { text-align: center; font-size: 1.5rem; margin: 0 0 2rem; }
+.auth { min-height: 100vh; display: grid; place-items: center; padding: 1.5rem 1rem; }
+.auth-card { width: 100%; max-width: 400px; padding: 2rem; }
+.auth-brand { display: flex; flex-direction: column; align-items: center; gap: .6rem; font-weight: 700; font-size: 1.1rem; margin-bottom: 1.5rem; }
+.auth-title { margin: 0; font-size: 1.5rem; text-align: center; }
+.auth-sub { margin: .35rem 0 1.5rem; text-align: center; color: var(--muted); }
 .auth form { display: flex; flex-direction: column; gap: 1rem; }
-.auth label { display: flex; flex-direction: column; gap: .25rem; font-size: .9rem; }
-.auth input { padding: .5rem; border: 0; border-bottom: 2px solid currentColor; background: transparent; color: inherit; font: inherit; }
-.auth button, .auth-link-button { padding: .75rem; border: 2px solid currentColor; background: transparent; color: inherit; font: inherit; text-align: center; text-decoration: none; cursor: pointer; }
-.auth-small { font-size: .8rem; align-self: flex-end; }
-.auth-switch { margin: .5rem 0; font-size: .9rem; }
-.auth-error { color: #c0392b; margin: 0; }
-.auth-info { margin: 0; }
+.auth-small { align-self: flex-end; font-size: .8125rem; margin-top: -.5rem; }
+.auth-error, .auth-info { margin: 0; padding: .6rem .8rem; border-radius: 8px; font-size: .875rem; }
+.auth-error { background: var(--danger-soft); color: var(--danger); }
+.auth-info { background: var(--ok-soft); color: var(--ok); }
+.auth-footer { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: .6rem; text-align: center; color: var(--muted); font-size: .875rem; }
+.auth-footer p { margin: 0; }
