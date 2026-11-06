@@ -6,6 +6,8 @@ import BuildingRequestForm from '../components/BuildingRequestForm';
 import './home.css';
 import { Link } from 'react-router-dom';
 import { useIsAdmin } from '../hooks/useIsAdmin';
+import JoinBuildingForm from '../components/JoinBuildingForm';
+import ManagerPanel from '../components/ManagerPanel';
 
 type StatusItem = { key: string; tone: 'pending' | 'ok' | 'rejected'; text: string; code?: string };
 
@@ -16,6 +18,12 @@ export default function Home() {
   const items: StatusItem[] = [];
 
   const { isAdmin } = useIsAdmin();
+
+  const [panelOpen, setPanelOpen] = useState(false);
+
+  const managed = memberships
+    .filter((m) => m.role === 'MANAGER' && m.status === 'APPROVED' && m.buildings)
+    .map((m) => ({ id: m.building_id, name: m.buildings!.name }));
 
   for (const b of requests) {
     if (b.status === 'PENDING')
@@ -82,9 +90,19 @@ export default function Home() {
       )}
       {modal === 'join' && (
         <Modal title="Pridružitev bloku" onClose={() => setModal(null)}>
-          <p>Obrazec sledi v issue 14.</p>
+            <JoinBuildingForm onDone={() => { setModal(null); reload(); }} />
         </Modal>
-      )}
+       )}
+       {managed.length > 0 && (
+            <>
+                {!panelOpen && (
+                <button className="slider-handle" onClick={() => setPanelOpen(true)}>
+                    ‹ Prijave bloka
+                </button>
+                )}
+                <ManagerPanel buildings={managed} open={panelOpen} onClose={() => setPanelOpen(false)} />
+            </>
+        )}
     </main>
   );
 }
