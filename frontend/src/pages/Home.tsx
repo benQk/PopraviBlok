@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { supabase } from '../lib/supabase';
 import { useMyBuildingState } from '../hooks/useMyBuildingState';
 import Modal from '../components/Modal';
 import BuildingRequestForm from '../components/BuildingRequestForm';
 import './home.css';
-import { Link } from 'react-router-dom';
-import { useIsAdmin } from '../hooks/useIsAdmin';
 import JoinBuildingForm from '../components/JoinBuildingForm';
 import ManagerPanel from '../components/ManagerPanel';
+import { Building2, CheckCircle2, Clock, KeyRound, XCircle } from 'lucide-react';
+import AppHeader from '../components/AppHeader';
+
+const ICONS = { pending: Clock, ok: CheckCircle2, rejected: XCircle };
 
 type StatusItem = { key: string; tone: 'pending' | 'ok' | 'rejected'; text: string; code?: string };
 
@@ -16,8 +17,6 @@ export default function Home() {
   const [modal, setModal] = useState<'join' | 'request' | null>(null);
 
   const items: StatusItem[] = [];
-
-  const { isAdmin } = useIsAdmin();
 
   const [panelOpen, setPanelOpen] = useState(false);
 
@@ -50,59 +49,67 @@ export default function Home() {
   if (loading) return <p className="home-msg">Nalaganje…</p>;
   if (error) return <p className="home-msg field-error">{error}</p>;
 
-  return (
+ return (
+  <>
+    <AppHeader name={fullName} />
     <main className="home">
-      <header className="home-header">
-        <div>
-          <h1>Dobrodošli, {fullName || 'uporabnik'}</h1>
-          {!hasActive && <p>Za začetek izberite, kaj želite storiti.</p>}
-        </div>
-        {isAdmin && <Link to="/admin">Administracija</Link>}
-        <button onClick={() => supabase.auth.signOut()}>Odjava</button>
-      </header>
+      <section className="hero">
+        <h1>Dobrodošli, {fullName || 'uporabnik'}</h1>
+        {!hasActive && <p>Za začetek izberite, kaj želite storiti.</p>}
+      </section>
 
-      {items.map((i) => (
-        <div key={i.key} className={`status status-${i.tone}`}>
-          <p>{i.text}</p>
-          {i.code && <p>Koda bloka za stanovalce: <strong>{i.code}</strong></p>}
+      {items.length > 0 && (
+        <div className="statuses">
+          {items.map((i) => {
+            const Icon = ICONS[i.tone];
+            return (
+              <div key={i.key} className={`status status-${i.tone}`}>
+                <Icon size={22} />
+                <div>
+                  <p>{i.text}</p>
+                  {i.code && <p className="status-code">Koda bloka za stanovalce: <code>{i.code}</code></p>}
+                </div>
+              </div>
+            );
+          })}
         </div>
-      ))}
+      )}
 
       {!hasActive && (
         <section className="choices">
-          <button className="choice choice-join" onClick={() => setModal('join')}>
-            <span className="choice-img" aria-hidden>🏠</span>
+          <button className="choice" onClick={() => setModal('join')}>
+            <span className="choice-icon"><KeyRound size={32} /></span>
             <span className="choice-label">Pridružite se bloku</span>
-            <span className="choice-sub">Imam kodo bloka</span>
+            <span className="choice-sub">Imam kodo, ki mi jo je posredoval upravnik</span>
           </button>
-          <button className="choice choice-request" onClick={() => setModal('request')}>
-            <span className="choice-img" aria-hidden>🏢</span>
+          <button className="choice" onClick={() => setModal('request')}>
+            <span className="choice-icon"><Building2 size={32} /></span>
             <span className="choice-label">Registrirajte blok</span>
             <span className="choice-sub">Želim upravljati nov blok</span>
           </button>
         </section>
       )}
-
-      {modal === 'request' && (
-        <Modal title="Zahtevek za nov blok" onClose={() => setModal(null)}>
-          <BuildingRequestForm onDone={() => { setModal(null); reload(); }} />
-        </Modal>
-      )}
-      {modal === 'join' && (
-        <Modal title="Pridružitev bloku" onClose={() => setModal(null)}>
-            <JoinBuildingForm onDone={() => { setModal(null); reload(); }} />
-        </Modal>
-       )}
-       {managed.length > 0 && (
-            <>
-                {!panelOpen && (
-                <button className="slider-handle" onClick={() => setPanelOpen(true)}>
-                    ‹ Prijave bloka
-                </button>
-                )}
-                <ManagerPanel buildings={managed} open={panelOpen} onClose={() => setPanelOpen(false)} />
-            </>
-        )}
     </main>
-  );
+
+    {modal === 'request' && (
+      <Modal title="Zahtevek za nov blok" onClose={() => setModal(null)}>
+        <BuildingRequestForm onDone={() => { setModal(null); reload(); }} />
+      </Modal>
+    )}
+    {modal === 'join' && (
+      <Modal title="Pridružitev bloku" onClose={() => setModal(null)}>
+        <JoinBuildingForm onDone={() => { setModal(null); reload(); }} />
+      </Modal>
+    )}
+
+    {managed.length > 0 && (
+      <>
+        {!panelOpen && (
+          <button className="slider-handle" onClick={() => setPanelOpen(true)}>Prijave bloka</button>
+        )}
+        <ManagerPanel buildings={managed} open={panelOpen} onClose={() => setPanelOpen(false)} />
+      </>
+    )}
+  </>
+);
 }

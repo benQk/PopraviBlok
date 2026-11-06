@@ -1,7 +1,9 @@
 import { NavLink, Outlet, Link } from 'react-router-dom';
+import { ArrowLeft, Building2 } from 'lucide-react';
 import './admin.css';
 
-const MENU = [{ to: '/admin/buildings', label: 'Zahtevki za bloke' }];
+const MENU = [{ to: '/admin/buildings', label: 'Zahtevki za bloke', icon: Building2 }];
+
 
 export default function AdminLayout() {
   return (
@@ -9,13 +11,13 @@ export default function AdminLayout() {
       <aside className="admin-menu">
         <h2>Administracija</h2>
         <nav>
-          {MENU.map((m) => (
-            <NavLink key={m.to} to={m.to} className={({ isActive }) => (isActive ? 'active' : '')}>
-              {m.label}
+          {MENU.map(({ to, label, icon: Icon }) => (
+            <NavLink key={to} to={to} className={({ isActive }) => (isActive ? 'active' : '')}>
+              <Icon size={18} />{label}
             </NavLink>
           ))}
         </nav>
-        <Link to="/" className="admin-back">← Nazaj na domačo stran</Link>
+        <Link to="/" className="admin-back"><ArrowLeft size={16} />Nazaj na domačo stran</Link>
       </aside>
       <section className="admin-content">
         <Outlet />

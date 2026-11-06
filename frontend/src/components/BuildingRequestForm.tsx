@@ -39,7 +39,7 @@ export default function BuildingRequestForm({ onDone }: { onDone: () => void }) 
         {errors.address && <span className="field-error">{errors.address}</span>}
       </label>
       {errors.form && <p className="field-error" role="alert">{errors.form}</p>}
-      <button type="submit" disabled={busy}>{busy ? 'Pošiljam…' : 'Oddaj zahtevek'}</button>
+      <button className="btn btn-primary btn-block" type="submit" disabled={busy}>{busy ? 'Pošiljam…' : 'Oddaj zahtevek'}</button>
     </form>
   );
 }

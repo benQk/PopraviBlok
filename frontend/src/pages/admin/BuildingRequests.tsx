@@ -50,7 +50,7 @@ export default function BuildingRequests() {
       {loading && rows.length === 0 ? (
         <p>Nalaganje…</p>
       ) : rows.length === 0 ? (
-        <p>Ni čakajočih zahtevkov.</p>
+        <p className="empty">Ni čakajočih zahtevkov.</p>
       ) : (
         <ul className="req-list">
           {rows.map((b) => (
@@ -66,8 +66,8 @@ export default function BuildingRequests() {
               </div>
               <span className="badge badge-pending">V obravnavi</span>
               <div className="req-actions">
-                <button disabled={busyId === b.id} onClick={() => review(b.id, true)}>Odobri</button>
-                <button disabled={busyId === b.id} onClick={() => review(b.id, false)}>Zavrni</button>
+                <button className="btn btn-sm btn-primary" disabled={busyId === b.id} onClick={() => review(b.id, true)}>Odobri</button>
+                <button className="btn btn-sm btn-danger" disabled={busyId === b.id} onClick={() => review(b.id, false)}>Zavrni</button>
               </div>
             </li>
           ))}

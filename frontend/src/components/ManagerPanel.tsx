@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { listPendingMemberships, reviewMembership, PAGE_SIZE } from '../lib/api/buildings';
 import Pagination from './Pagination';
+import { X } from 'lucide-react';
 
 type Rows = Awaited<ReturnType<typeof listPendingMemberships>>['rows'];
 type Props = { buildings: { id: string; name: string }[]; open: boolean; onClose: () => void };
@@ -54,7 +55,7 @@ export default function ManagerPanel({ buildings, open, onClose }: Props) {
     <aside className={`slider ${open ? 'slider-open' : ''}`} aria-hidden={!open}>
       <div className="slider-head">
         <h2>Prijave bloka</h2>
-        <button onClick={onClose} aria-label="Zapri">✕</button>
+        <button onClick={onClose} aria-label="Zapri"><X size={18} /></button>
       </div>
 
       {buildings.length > 1 && (
@@ -68,7 +69,7 @@ export default function ManagerPanel({ buildings, open, onClose }: Props) {
       {loading && rows.length === 0 ? (
         <p>Nalaganje…</p>
       ) : rows.length === 0 ? (
-        <p>Ni čakajočih prijav.</p>
+        <p className="empty">Ni čakajočih zahtevkov.</p>
       ) : (
         <ul className="req-list">
           {rows.map((m) => (
@@ -83,8 +84,8 @@ export default function ManagerPanel({ buildings, open, onClose }: Props) {
               </div>
               <span className="badge badge-pending">V obravnavi</span>
               <div className="req-actions">
-                <button disabled={busyId === m.id} onClick={() => review(m.id, true)}>Sprejmi</button>
-                <button disabled={busyId === m.id} onClick={() => review(m.id, false)}>Zavrni</button>
+                <button className="btn btn-sm btn-primary" disabled={busyId === m.id} onClick={() => review(m.id, true)}>Sprejmi</button>
+                <button className="btn btn-sm btn-danger" disabled={busyId === m.id} onClick={() => review(m.id, false)}>Zavrni</button>
               </div>
             </li>
           ))}
