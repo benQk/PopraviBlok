@@ -7,6 +7,7 @@ import JoinBuildingForm from '../components/JoinBuildingForm';
 import ManagerPanel from '../components/ManagerPanel';
 import { Building2, CheckCircle2, Clock, KeyRound, XCircle } from 'lucide-react';
 import AppHeader from '../components/AppHeader';
+import BuildingIssues from '../components/BuildingIssues';
 
 const ICONS = { pending: Clock, ok: CheckCircle2, rejected: XCircle };
 
@@ -74,6 +75,17 @@ export default function Home() {
           })}
         </div>
       )}
+
+      {memberships
+      .filter((m) => m.status === 'APPROVED' && m.buildings && (m.role === 'RESIDENT' || m.role === 'MANAGER'))
+      .map((m) => (
+        <BuildingIssues
+          key={m.id}
+          buildingId={m.building_id}
+          buildingName={m.buildings!.name}
+          canReport={m.role === 'RESIDENT'}
+        />
+      ))}
 
       {!hasActive && (
         <section className="choices">

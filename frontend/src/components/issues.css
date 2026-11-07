@@ -1,0 +1,30 @@
+.issues { margin-top: 2.5rem; }
+.issues-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.issues-head h2 { margin: 0; font-size: 1.25rem; }
+.issues-search { display: flex; gap: .5rem; margin-bottom: 1.25rem; }
+
+.notice { display: flex; align-items: center; gap: .6rem; padding: .75rem 1rem; margin-bottom: 1rem; border-radius: var(--radius); background: var(--ok-soft); color: var(--ok); }
+.notice span { flex: 1; }
+.notice button { display: grid; place-items: center; border: 0; background: transparent; color: inherit; cursor: pointer; }
+
+.issue-grid { list-style: none; margin: 0 0 1.25rem; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.issue-card { overflow: hidden; display: flex; flex-direction: column; }
+.issue-thumb { position: relative; aspect-ratio: 16 / 9; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.issue-hover { position: absolute; inset: 0; padding: .9rem; background: rgba(10, 18, 24, .85); color: #fff; font-size: .875rem; opacity: 0; transition: opacity .2s; overflow: hidden; }
+.issue-hover p { margin: 0; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.issue-card:hover .issue-hover, .issue-card:focus .issue-hover, .issue-card:focus-within .issue-hover { opacity: 1; }
+.issue-body { padding: 1rem; display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+.issue-body h3 { margin: .25rem 0 .1rem; font-size: 1.05rem; overflow-wrap: anywhere; }
+.issue-badges { display: flex; gap: .4rem; flex-wrap: wrap; }
+.issue-meta { margin: 0; display: flex; align-items: center; gap: .4rem; color: var(--muted); font-size: .8125rem; overflow-wrap: anywhere; }
+
+.badge-info { background: var(--accent-soft); color: var(--accent); }
+.badge-warn { background: var(--warn-soft); color: var(--warn); }
+.badge-ok { background: var(--ok-soft); color: var(--ok); }
+.badge-muted { background: var(--border); color: var(--muted); }
+.badge-urgent { background: var(--danger-soft); color: var(--danger); }
+
+.hint { font-size: .75rem; font-weight: 400; color: var(--muted); }
+.hint-over { color: var(--danger); font-weight: 600; }
+
+@media (max-width: 600px) { .issue-grid { grid-template-columns: 1fr; } }
