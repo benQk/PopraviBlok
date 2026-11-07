@@ -41,6 +41,8 @@ export default function Home() {
       items.push({ key: `m-${m.id}`, tone: 'rejected', text: `Prošnja za pridružitev bloku »${name}« je bila zavrnjena.` });
     else if (m.role === 'MANAGER')
       items.push({ key: `m-${m.id}`, tone: 'ok', text: `Vaš blok »${name}« je odobren.`, code: m.buildings?.invite_code ?? undefined });
+    else if (m.role === 'TECHNICIAN')
+      items.push({ key: `m-${m.id}`, tone: 'ok', text: `Prijavljeni ste v blok »${name}« kot serviser.` });
     else
       items.push({ key: `m-${m.id}`, tone: 'ok', text: `Prijavljeni ste v blok »${name}«.` });
   }
@@ -84,6 +86,7 @@ export default function Home() {
           buildingId={m.building_id}
           buildingName={m.buildings!.name}
           canReport={m.role === 'RESIDENT'}
+          isManager={m.role === 'MANAGER'}
         />
       ))}
 

@@ -1,4 +1,5 @@
 import { supabase } from '../supabase';
+import type { Enums } from '../database.types';
 
 export const ISSUES_PAGE_SIZE = 6;
 
@@ -9,6 +10,26 @@ export async function listCategories() {
 }
 
 type NewIssue = { buildingId: string; categoryId: string; title: string; description: string; location: string };
+
+export async function getIssue(id: string) {
+  const { data, error } = await supabase
+    .from('issues')
+    .select(`*, categories(name), buildings(name),
+      reporter:profiles!issues_reporter_id_fkey(full_name, email),
+      assignee:profiles!issues_assignee_id_fkey(full_name, email)`)
+    .eq('id', id)
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
+export async function triageIssue(issueId: string, priority: Enums<'issue_priority'>, assigneeId: string) {
+  const { data, error } = await supabase.rpc('triage_issue', {
+    p_issue: issueId, p_priority: priority, p_assignee: assigneeId,
+  });
+  if (error) throw error;
+  return data;
+}
 
 export async function createIssue(i: NewIssue) {
   const { data, error } = await supabase.rpc('create_issue', {

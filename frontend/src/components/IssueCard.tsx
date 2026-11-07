@@ -1,13 +1,14 @@
 import { MapPin, Tag, Wrench } from 'lucide-react';
 import { PRIORITY_LABEL, STATUS_LABEL } from '../lib/issueLabels';
 import type { listIssues } from '../lib/api/issues';
+import { Link } from 'react-router-dom';
 
 type Issue = Awaited<ReturnType<typeof listIssues>>['rows'][number];
 
 export default function IssueCard({ issue }: { issue: Issue }) {
   const status = STATUS_LABEL[issue.status];
   return (
-    <li className="issue-card card" tabIndex={0}>
+    <li className="issue-card card">
       <div className="issue-thumb">
         <Wrench size={40} aria-hidden />
         <div className="issue-hover"><p>{issue.description}</p></div>
@@ -21,7 +22,7 @@ export default function IssueCard({ issue }: { issue: Issue }) {
             </span>
           )}
         </div>
-        <h3>{issue.title}</h3>
+        <h3><Link to={`/issues/${issue.id}`} className="issue-link">{issue.title}</Link></h3>
         <p className="issue-meta"><MapPin size={14} aria-hidden />{issue.location}</p>
         <p className="issue-meta">
           <Tag size={14} aria-hidden />{issue.categories?.name} · {new Date(issue.created_at).toLocaleDateString('sl-SI')}

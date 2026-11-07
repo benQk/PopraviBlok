@@ -153,7 +153,24 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
-            "can_read_issues":
+            "add_technician":
+{ Args: { "p_building": string,"p_category": string,"p_email": string }; Returns: {
+              "apartment": string | null,
+"building_id": string,
+"category_id": string | null,
+"created_at": string,
+"id": string,
+"role": Database["public"]['Enums']["member_role"],
+"status": Database["public"]['Enums']["approval_status"],
+"user_id": string
+            }
+                          SetofOptions: {
+        from: "*"
+        to: "memberships"
+        isOneToOne: true
+        isSetofReturn: false
+      } },
+"can_read_issues":
 { Args: { "b": string }; Returns: boolean
                            },
 "create_issue":
@@ -224,7 +241,31 @@ isOneToOne: false
                            },
 "review_membership":
 { Args: { "p_approve": boolean,"p_membership": string }; Returns: undefined
-                           }
+                           },
+"triage_issue":
+{ Args: { "p_assignee": string,"p_issue": string,"p_priority": Database["public"]['Enums']["issue_priority"] }; Returns: {
+              "assignee_id": string | null,
+"building_id": string,
+"category_id": string,
+"created_at": string,
+"description": string,
+"id": string,
+"location": string,
+"merged_into_id": string | null,
+"photo_path": string | null,
+"priority": Database["public"]['Enums']["issue_priority"],
+"reporter_id": string,
+"resolved_at": string | null,
+"status": Database["public"]['Enums']["issue_status"],
+"title": string,
+"updated_at": string
+            }
+                          SetofOptions: {
+        from: "*"
+        to: "issues"
+        isOneToOne: true
+        isSetofReturn: false
+      } }
           }
           Enums: {
             "approval_status": "PENDING"|"APPROVED"|"REJECTED","issue_priority": "LOW"|"NORMAL"|"URGENT","issue_status": "NEW"|"ASSIGNED"|"IN_PROGRESS"|"RESOLVED"|"CLOSED"|"REOPENED"|"REJECTED"|"MERGED","member_role": "MANAGER"|"RESIDENT"|"TECHNICIAN"

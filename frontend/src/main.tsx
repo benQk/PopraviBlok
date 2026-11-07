@@ -11,6 +11,7 @@ import { AuthProvider } from './context/AuthContext';
 import AdminRoute from './components/AdminRoute';
 import AdminLayout from './pages/admin/AdminLayout';
 import BuildingRequests from './pages/admin/BuildingRequests';
+import IssueDetail from './pages/IssueDetail';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <Route path="buildings" element={<BuildingRequests />} />
               </Route>
             </Route>
+            <Route path="/issues/:id" element={<IssueDetail />} />
           </Route>
         </Routes>
       </AuthProvider>
