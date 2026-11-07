@@ -1,16 +1,18 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { CheckCircle2, Plus, Search, X } from 'lucide-react';
+import { CheckCircle2, Plus, Search, X, UserPlus } from 'lucide-react';
 import { listIssues, ISSUES_PAGE_SIZE } from '../lib/api/issues';
 import IssueCard from './IssueCard';
 import IssueForm from './IssueForm';
 import Modal from './Modal';
 import Pagination from './Pagination';
 import './issues.css';
+import TechniciansModal from './TechniciansModal';
 
 type Rows = Awaited<ReturnType<typeof listIssues>>['rows'];
-type Props = { buildingId: string; buildingName: string; canReport: boolean };
+type Props = { buildingId: string; buildingName: string; canReport: boolean; isManager: boolean };
 
-export default function BuildingIssues({ buildingId, buildingName, canReport }: Props) {
+
+export default function BuildingIssues({ buildingId, buildingName, canReport, isManager }: Props) {
   const [page, setPage] = useState(0);
   const [searchInput, setSearchInput] = useState('');
   const [query, setQuery] = useState('');
@@ -21,6 +23,7 @@ export default function BuildingIssues({ buildingId, buildingName, canReport }: 
   const [reloadKey, setReloadKey] = useState(0);
   const [formOpen, setFormOpen] = useState(false);
   const [confirmation, setConfirmation] = useState<string | null>(null);
+  const [techOpen, setTechOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -56,8 +59,12 @@ export default function BuildingIssues({ buildingId, buildingName, canReport }: 
 
   return (
     <section className="issues">
-      <div className="issues-head">
-        <h2>Težave bloka {buildingName}</h2>
+      <div className="issues-actions">
+        {isManager && (
+          <button className="btn" onClick={() => setTechOpen(true)}>
+            <UserPlus size={18} />Dodaj serviserja
+          </button>
+        )}
         {canReport && (
           <button className="btn btn-primary" onClick={() => { setConfirmation(null); setFormOpen(true); }}>
             <Plus size={18} />Prijavi težavo
@@ -96,6 +103,7 @@ export default function BuildingIssues({ buildingId, buildingName, canReport }: 
           <IssueForm buildingId={buildingId} onDone={onCreated} />
         </Modal>
       )}
+      {techOpen && <TechniciansModal buildingId={buildingId} onClose={() => setTechOpen(false)} />}
     </section>
   );
 }

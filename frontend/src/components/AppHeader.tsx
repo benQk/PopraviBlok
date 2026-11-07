@@ -3,7 +3,7 @@ import { Building2, LogOut, Shield } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useIsAdmin } from '../hooks/useIsAdmin';
 
-export default function AppHeader({ name }: { name: string }) {
+export default function AppHeader({ name }: { name?: string }) {
   const { isAdmin } = useIsAdmin();
   return (
     <header className="topbar">
