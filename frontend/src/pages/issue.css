@@ -15,3 +15,20 @@
 .facts dd { margin: 0; overflow-wrap: anywhere; }
 .facts dd span { display: block; font-size: .8125rem; color: var(--muted); }
 @media (max-width: 800px) { .issue-layout { grid-template-columns: 1fr; } }
+
+.section-title { margin: 2rem 0 1rem; font-size: 1.1rem; }
+.status-actions { display: flex; flex-direction: column; gap: .5rem; }
+
+.timeline { list-style: none; margin: 0; padding: 0; }
+.tl-item { position: relative; display: flex; gap: .9rem; padding-bottom: 1.5rem; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item:not(:last-child)::before { content: ''; position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--border); }
+.tl-dot { flex-shrink: 0; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); }
+.tl-warn .tl-dot { background: var(--warn-soft); color: var(--warn); }
+.tl-ok .tl-dot { background: var(--ok-soft); color: var(--ok); }
+.tl-muted .tl-dot { background: var(--border); color: var(--muted); }
+.tl-body { min-width: 0; padding-top: .2rem; }
+.tl-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .75rem; }
+.tl-head time { color: var(--muted); font-size: .8125rem; }
+.tl-actor { margin: .1rem 0 0; color: var(--muted); font-size: .875rem; }
+.tl-note { margin: .4rem 0 0; padding: .5rem .75rem; border-left: 3px solid var(--border); background: var(--bg); border-radius: 0 8px 8px 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: .9rem; }

@@ -8,6 +8,8 @@ import { PRIORITY_LABEL, STATUS_LABEL } from '../lib/issueLabels';
 import AppHeader from '../components/AppHeader';
 import TriagePanel from '../components/TriagePanel';
 import './issue.css';
+import IssueTimeline from '../components/IssueTimeline';
+import StatusActions from '../components/StatusActions';
 
 type Issue = NonNullable<Awaited<ReturnType<typeof getIssue>>>;
 const fmt = (s: string) => new Date(s).toLocaleString('sl-SI');
@@ -64,6 +66,8 @@ export default function IssueDetail() {
               </div>
               <h1>{issue.title}</h1>
               <p className="issue-desc">{issue.description}</p>
+              <h2 className="section-title">Potek obravnave</h2>
+              <IssueTimeline key={issue.updated_at} issueId={issue.id} />
             </article>
 
             <aside className="issue-side">
@@ -79,6 +83,13 @@ export default function IssueDetail() {
                   categoryName={issue.categories?.name ?? ''}
                   initialPriority={issue.priority}
                   onDone={() => { setNotice('Prijava je dodeljena serviserju.'); load(); }}
+                />
+              )}
+              {isManager && (
+                <StatusActions
+                  issueId={issue.id}
+                  status={issue.status}
+                  onDone={(msg) => { setNotice(msg); load(); }}
                 />
               )}
 

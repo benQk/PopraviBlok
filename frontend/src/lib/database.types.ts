@@ -57,6 +57,32 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"issue_events": {
+                  Row: {
+                    "actor_id": string,"created_at": string,"from_status": Database["public"]['Enums']["issue_status"] | null,"id": string,"issue_id": string,"note": string | null,"to_status": Database["public"]['Enums']["issue_status"]
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "actor_id": string,"created_at"?: string,"from_status"?: Database["public"]['Enums']["issue_status"] | null,"id"?: string,"issue_id": string,"note"?: string | null,"to_status": Database["public"]['Enums']["issue_status"]
+                  }
+                  Update: {
+                    "actor_id"?: string,"created_at"?: string,"from_status"?: Database["public"]['Enums']["issue_status"] | null,"id"?: string,"issue_id"?: string,"note"?: string | null,"to_status"?: Database["public"]['Enums']["issue_status"]
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "issue_events_actor_id_fkey"
+      columns: ["actor_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "issue_events_issue_id_fkey"
+      columns: ["issue_id"]
+isOneToOne: false
+      referencedRelation: "issues"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"issues": {
                   Row: {
                     "assignee_id": string | null,"building_id": string,"category_id": string,"created_at": string,"description": string,"id": string,"location": string,"merged_into_id": string | null,"photo_path": string | null,"priority": Database["public"]['Enums']["issue_priority"],"reporter_id": string,"resolved_at": string | null,"status": Database["public"]['Enums']["issue_status"],"title": string,"updated_at": string
@@ -242,6 +268,30 @@ isOneToOne: false
 "review_membership":
 { Args: { "p_approve": boolean,"p_membership": string }; Returns: undefined
                            },
+"transition_issue":
+{ Args: { "p_issue": string,"p_note"?: string,"p_to": Database["public"]['Enums']["issue_status"] }; Returns: {
+              "assignee_id": string | null,
+"building_id": string,
+"category_id": string,
+"created_at": string,
+"description": string,
+"id": string,
+"location": string,
+"merged_into_id": string | null,
+"photo_path": string | null,
+"priority": Database["public"]['Enums']["issue_priority"],
+"reporter_id": string,
+"resolved_at": string | null,
+"status": Database["public"]['Enums']["issue_status"],
+"title": string,
+"updated_at": string
+            }
+                          SetofOptions: {
+        from: "*"
+        to: "issues"
+        isOneToOne: true
+        isSetofReturn: false
+      } },
 "triage_issue":
 { Args: { "p_assignee": string,"p_issue": string,"p_priority": Database["public"]['Enums']["issue_priority"] }; Returns: {
               "assignee_id": string | null,

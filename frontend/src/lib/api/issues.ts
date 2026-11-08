@@ -63,3 +63,22 @@ export async function listIssues(buildingId: string, page: number, search: strin
   if (error) throw error;
   return { rows: data, total: count ?? 0 };
 }
+
+export async function transitionIssue(issueId: string, to: Enums<'issue_status'>, note?: string) {
+  const { data, error } = await supabase.rpc('transition_issue', {
+    p_issue: issueId, p_to: to, p_note: note,
+  });
+  if (error) throw error;
+  return data;
+}
+
+// Zgodovina prijave, najstarejši dogodek prvi
+export async function listIssueEvents(issueId: string) {
+  const { data, error } = await supabase
+    .from('issue_events')
+    .select('*, actor:profiles(full_name)')
+    .eq('issue_id', issueId)
+    .order('created_at', { ascending: true });
+  if (error) throw error;
+  return data;
+}
