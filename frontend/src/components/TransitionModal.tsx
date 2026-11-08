@@ -11,6 +11,7 @@ type Props = {
   noteRequired: boolean;
   submitLabel: string;
   danger?: boolean;
+  minLength?: number;
   onClose: () => void;
   onDone: () => void;
 };
@@ -24,7 +25,10 @@ export default function TransitionModal(p: Props) {
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setFormError(null);
-    if (p.noteRequired && !note.trim()) return setNoteError('Razlog je obvezen.');
+    const trimmed = note.trim();
+    if (p.noteRequired && !trimmed) return setNoteError('Razlog je obvezen.');
+    if (p.minLength && trimmed.length < p.minLength && (p.noteRequired || trimmed))
+      return setNoteError(`Razlog mora imeti vsaj ${p.minLength} znakov.`);
     setNoteError(null);
     setBusy(true);
     try {
@@ -44,6 +48,7 @@ export default function TransitionModal(p: Props) {
           <textarea rows={4} value={note} maxLength={1000} onChange={(e) => setNote(e.target.value)}
                     aria-invalid={!!noteError} />
           {noteError && <span className="field-error">{noteError}</span>}
+          {p.minLength && <span className="hint">{note.trim().length} / vsaj {p.minLength} znakov</span>}
         </label>
         {formError && <p className="field-error" role="alert">{formError}</p>}
         <button type="submit" disabled={busy}

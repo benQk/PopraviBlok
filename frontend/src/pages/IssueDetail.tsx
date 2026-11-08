@@ -11,6 +11,8 @@ import './issue.css';
 import IssueTimeline from '../components/IssueTimeline';
 import StatusActions from '../components/StatusActions';
 import TechnicianActions from '../components/TechnicianActions';
+import ReporterActions from '../components/ReporterActions';
+import ReopenNotice from '../components/ReopenNotice';
 
 type Issue = NonNullable<Awaited<ReturnType<typeof getIssue>>>;
 const fmt = (s: string) => new Date(s).toLocaleString('sl-SI');
@@ -87,6 +89,9 @@ export default function IssueDetail() {
                   onDone={() => { setNotice('Prijava je dodeljena serviserju.'); load(); }}
                 />
               )}
+              {isManager && issue.status === 'REOPENED' && (
+                <ReopenNotice key={issue.updated_at} issueId={issue.id} />
+              )}
               {isManager && (
                 <StatusActions
                   issueId={issue.id}
@@ -102,6 +107,12 @@ export default function IssueDetail() {
                     if (leave) navigate('/');   // po zavrnitvi prijave serviser ne sme več brati
                     else { setNotice(msg); load(); }
                   }}
+                />
+              )}
+              {issue.reporter_id === uid && issue.status === 'RESOLVED' && (
+                <ReporterActions
+                  issueId={issue.id}
+                  onDone={(msg) => { setNotice(msg); load(); }}
                 />
               )}
 
