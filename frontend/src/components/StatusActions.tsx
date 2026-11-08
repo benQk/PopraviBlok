@@ -14,12 +14,6 @@ const ACTIONS: Partial<Record<Status, Action[]>> = {
     { to: 'REJECTED', label: 'Zavrni prijavo', title: 'Zavrnitev prijave',
       noteLabel: 'Razlog zavrnitve', noteRequired: true, danger: true },
   ],
-  RESOLVED: [
-    { to: 'CLOSED', label: 'Zapri prijavo', title: 'Zaprtje prijave',
-      noteLabel: 'Opomba (neobvezno)', noteRequired: false },
-    { to: 'REOPENED', label: 'Ponovno odpri', title: 'Ponovno odprtje prijave',
-      noteLabel: 'Razlog za ponovno odprtje', noteRequired: true },
-  ],
 };
 
 type Props = { issueId: string; status: Status; onDone: (message: string) => void };
