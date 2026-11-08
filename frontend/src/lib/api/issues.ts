@@ -3,6 +3,15 @@ import type { Enums } from '../database.types';
 
 export const ISSUES_PAGE_SIZE = 6;
 
+const ISSUE_SELECT =
+  '*, categories(name), buildings(name), reporter:profiles!issues_reporter_id_fkey(full_name)';
+const ACTIVE = '(CLOSED,REJECTED,MERGED)';
+
+function searchFilter(term: string) {
+  const t = term.trim().replace(/[%,()*\\_]/g, ' ').trim();
+  return t ? `title.ilike.%${t}%,location.ilike.%${t}%,description.ilike.%${t}%` : null;
+}
+
 export async function listCategories() {
   const { data, error } = await supabase.from('categories').select('id, name').order('name');
   if (error) throw error;
@@ -46,17 +55,26 @@ export async function createIssue(i: NewIssue) {
 // Aktivne prijave bloka, najnovejše prve
 export async function listIssues(buildingId: string, page: number, search: string) {
   const from = page * ISSUES_PAGE_SIZE;
-  let q = supabase
-    .from('issues')
-    .select('*, categories(name), reporter:profiles!issues_reporter_id_fkey(full_name)', { count: 'exact' })
+  let q = supabase.from('issues').select(ISSUE_SELECT, { count: 'exact' })
     .eq('building_id', buildingId)
-    .not('status', 'in', '(CLOSED,REJECTED,MERGED)');
+    .not('status', 'in', ACTIVE);
+  const f = searchFilter(search);
+  if (f) q = q.or(f);
+  const { data, count, error } = await q
+    .order('created_at', { ascending: false })
+    .range(from, from + ISSUES_PAGE_SIZE - 1);
+  if (error) throw error;
+  return { rows: data, total: count ?? 0 };
+}
 
-  const term = search.trim().replace(/[%,()*\\_]/g, ' ').trim();
-  if (term) {
-    q = q.or(`title.ilike.%${term}%,location.ilike.%${term}%,description.ilike.%${term}%`);
-  }
-
+// Serviser: samo prijave, dodeljene njemu (AC1, AC5)
+export async function listAssignedIssues(userId: string, page: number, search: string) {
+  const from = page * ISSUES_PAGE_SIZE;
+  let q = supabase.from('issues').select(ISSUE_SELECT, { count: 'exact' })
+    .eq('assignee_id', userId)
+    .not('status', 'in', ACTIVE);
+  const f = searchFilter(search);
+  if (f) q = q.or(f);
   const { data, count, error } = await q
     .order('created_at', { ascending: false })
     .range(from, from + ISSUES_PAGE_SIZE - 1);

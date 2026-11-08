@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link,useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, Wrench } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
@@ -10,6 +10,7 @@ import TriagePanel from '../components/TriagePanel';
 import './issue.css';
 import IssueTimeline from '../components/IssueTimeline';
 import StatusActions from '../components/StatusActions';
+import TechnicianActions from '../components/TechnicianActions';
 
 type Issue = NonNullable<Awaited<ReturnType<typeof getIssue>>>;
 const fmt = (s: string) => new Date(s).toLocaleString('sl-SI');
@@ -23,6 +24,7 @@ export default function IssueDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const load = useCallback(async () => {
     try {
@@ -90,6 +92,16 @@ export default function IssueDetail() {
                   issueId={issue.id}
                   status={issue.status}
                   onDone={(msg) => { setNotice(msg); load(); }}
+                />    
+              )}
+              {issue.assignee_id === uid && (
+                <TechnicianActions
+                  issueId={issue.id}
+                  status={issue.status}
+                  onDone={(msg, leave) => {
+                    if (leave) navigate('/');   // po zavrnitvi prijave serviser ne sme več brati
+                    else { setNotice(msg); load(); }
+                  }}
                 />
               )}
 
