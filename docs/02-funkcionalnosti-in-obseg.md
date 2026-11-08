@@ -64,15 +64,15 @@
 | F3 | Prijava težave | Stanovalec odda prijavo s kategorijo, lokacijo v bloku in opisom. | **MVP** |
 | F4 | Triaža in dodelitev serviserju | Upravnik določi prioriteto in dodeli prijavo serviserju, ki ima ustrezno stroko. Serviserje v blok doda upravnik. | **MVP** |
 | F5 | Nadzorovan potek statusov | Prijava prehaja samo po dovoljenih prehodih in samo z dovoljenimi vlogami; vsaka sprememba se zapiše v zgodovino. | **MVP** |
-| F6 | Potrditev ali zavrnitev odprave | Stanovalec potrdi (prijava se zapre) ali zavrne z razlogom (prijava se vrne upravniku). | **MVP** |
-| F7 | Zaznavanje in združevanje podvojenih prijav | Ob oddaji sistem prikaže podobne odprte prijave (ista kategorija in lokacija) v bloku in jih združi ob oddaji | |
-| F8 | Izvoz poročil (PDF/CSV) | Upravnik lahko izvozi poročilo v izbrani obliki za zbore stanovalcev | |
-| F9 | Komentarji in fotografije | Udeleženci prijave dodajajo komentarje in slike (stanje pred in po popravilu). | |
-| F10 | Obvestila o spremembah | Prijavitelj in serviser prejmeta obvestilo v aplikaciji ob spremembi statusa. | |
-| F11 | Nadzorna plošča upravnika | Pregled prijav po prioriteti, kategoriji in staranju s filtriranjem. | |
-| F12 | Upravljanje blokov in uporabnikov | Administrator blokira uporabnike ali bloke in pregleduje sistem. | |
-| F13 | Časovnica prijave | Prikaz zgodovine prijave: kdo je kaj naredil in kdaj. | |
-| F14 | Serviserjev delovni prostor | Serviser vidi svoje naloge, jih sprejme ali zavrne z razlogom, komentira in označi kot odpravljene. | **MVP** |
+| F6 | Serviserjev delovni prostor | Serviser vidi svoje naloge, jih sprejme ali zavrne z razlogom, komentira in označi kot odpravljene. | **MVP** |
+| F7 | Potrditev ali zavrnitev odprave | Stanovalec potrdi (prijava se zapre) ali zavrne z razlogom (prijava se vrne upravniku). | **MVP** |
+| F8 | Zaznavanje in združevanje podvojenih prijav | Ob oddaji sistem prikaže podobne odprte prijave (ista kategorija in lokacija) v bloku in jih združi ob oddaji | |
+| F9 | Izvoz poročil (PDF/CSV) | Upravnik lahko izvozi poročilo v izbrani obliki za zbore stanovalcev | |
+| F10 | Komentarji in fotografije | Udeleženci prijave dodajajo komentarje in slike (stanje pred in po popravilu). | |
+| F11 | Obvestila o spremembah | Prijavitelj in serviser prejmeta obvestilo v aplikaciji ob spremembi statusa. | |
+| F12 | Nadzorna plošča upravnika | Pregled prijav po prioriteti, kategoriji in staranju s filtriranjem. | |
+| F13 | Upravljanje blokov in uporabnikov | Administrator blokira uporabnike ali bloke in pregleduje sistem. | |
+| F14 | Časovnica prijave | Prikaz zgodovine prijave: kdo je kaj naredil in kdaj. | |
 | F15 |  E-poštna obvestila | Poleg obvestil v aplikaciji, še bodo uporabniki prejeli obvestila na mailu. | |
 
 ---

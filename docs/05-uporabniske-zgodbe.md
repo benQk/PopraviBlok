@@ -55,7 +55,18 @@
   4. Neposredna sprememba polja `status` iz odjemalca mimo funkcije `transition_issue` ni mogoča.
   5. Upravnik lahko prijavo `NEW` zavrne (`REJECTED`); pri tem mora vpisati razlog, ki se shrani v zapis zgodovine.
 
-### US-06 – Potrditev ali zavrnitev odprave
+### US-06 – Serviserjev delovni prostor
+- **Funkcionalnost:** F14 
+- **Vloga:** Serviser
+- **Zgodba:** Kot serviser želim videti svoje naloge in jih sprejeti ali zavrniti ter označiti kot odpravljene, da ni treba usklajevanja po telefonu.
+- **Acceptance criteria:**
+  1. Serviser vidi samo prijave, ki so mu dodeljene (`assignee_id` je njegov), z naslovom, lokacijo, prioriteto in opisom.
+  2. Pri prijavi `ASSIGNED` lahko nalog sprejme (status `IN_PROGRESS`).
+  3. Nalog lahko zavrne samo z razlogom; status se vrne na `NEW`, dodelitev se odstrani, razlog pa se zapiše v zgodovino.
+  4. Pri prijavi `IN_PROGRESS` lahko serviser nalog označi kot odpravljen (status `RESOLVED`) in doda komentar.
+  5. Serviser ne vidi nedodeljenih prijav in prijav, dodeljenih drugim serviserjem.
+
+### US-07 – Potrditev ali zavrnitev odprave
 - **Funkcionalnost:** F6 
 - **Vloga:** Stanovalec
 - **Zgodba:** Kot prijavitelj želim potrditi ali zavrniti odpravo težave, da se prijava zapre šele, ko je težava resnično rešena.
@@ -66,7 +77,7 @@
   4. Upravnik prijavo `REOPENED` vidi na seznamu in jo lahko ponovno dodeli, pri čemer vidi razlog zavrnitve.
   5. Drug stanovalec ali serviser odprave ne more potrditi ali zavrniti.
 
-### US-07 – Zaznavanje in združevanje podvojenih prijav
+### US-08 – Zaznavanje in združevanje podvojenih prijav
 - **Funkcionalnost:** F7
 - **Vloga:** Stanovalec
 - **Zgodba:** Kot stanovalec želim ob oddaji videti podobne odprte prijave in jih po potrebi združiti, da se ista težava ne prijavlja večkrat.
@@ -77,7 +88,7 @@
   4. Stanovalec lahko opozorilo prezre in odda novo, samostojno prijavo.
   5. Združena prijava se ne prikazuje med odprtimi, njen prijavitelj pa vidi status glavne prijave.
 
-### US-08 – Izvoz poročil
+### US-09 – Izvoz poročil
 - **Funkcionalnost:** F8
 - **Vloga:** Upravnik
 - **Zgodba:** Kot upravnik želim izvoziti poročilo o prijavah za izbrano obdobje, da ga lahko predstavim na zboru stanovalcev.
@@ -88,7 +99,7 @@
   4. Če v obdobju ni prijav, se izpiše "V izbranem obdobju ni prijav" in datoteka se ne ustvari.
   5. Ime datoteke vsebuje naziv bloka in obdobje (npr. `blok-a_2026-01-01_2026-03-31.csv`).
 
-### US-09 – Komentarji in fotografije
+### US-10 – Komentarji in fotografije
 - **Funkcionalnost:** F9
 - **Vloga:** Stanovalec
 - **Zgodba:** Kot stanovalec želim k prijavi dodati komentar ali fotografijo, da lahko pojasnim težavo ali prikažem stanje pred in po popravilu.
@@ -99,7 +110,7 @@
   4. Komentar prikazuje avtorja, čas in morebitno fotografijo ter je viden na strani prijave.
   5. Fotografijo lahko vidijo samo člani bloka prijave.
 
-### US-10 – Obvestila v aplikaciji
+### US-11 – Obvestila v aplikaciji
 - **Funkcionalnost:** F10
 - **Vloga:** Stanovalec
 - **Zgodba:** Kot prijavitelj želim v aplikaciji videti obvestilo, ko se spremeni status moje prijave, da ni treba stalno preverjati.
@@ -110,7 +121,7 @@
   4. Uporabnik vidi samo svoja obvestila.
   5. Obvestilo vsebuje naslov prijave in nov status.
 
-### US-11 – Nadzorna plošča upravnika
+### US-12 – Nadzorna plošča upravnika
 - **Funkcionalnost:** F11
 - **Vloga:** Upravnik
 - **Zgodba:** Kot upravnik želim imeti pregled prijav po prioriteti, kategoriji in starosti, da najprej obravnavam najnujnejše.
@@ -121,7 +132,7 @@
   4. Na vrhu so prikazana števila prijav po statusih.
   5. Upravnik z več bloki lahko izbere blok, pri čemer vidi podatke samo izbranega.
 
-### US-12 – Upravljanje blokov in uporabnikov
+### US-13 – Upravljanje blokov in uporabnikov
 - **Funkcionalnost:** F12
 - **Vloga:** Administrator
 - **Zgodba:** Kot administrator želim blokirati zlonamernega uporabnika ali blok, da zaščitim sistem pred zlorabami.
@@ -132,7 +143,7 @@
   4. Administrator lahko blokiranje prekliče, uporabnik ali blok pa je nato spet normalno dostopen.
   5. Administrator ne more blokirati samega sebe.
 
-### US-13 – Časovnica prijave
+### US-14 – Časovnica prijave
 - **Funkcionalnost:** F13
 - **Vloga:** Stanovalec
 - **Zgodba:** Kot stanovalec želim videti časovnico svoje prijave, da vem, kdo je kaj naredil in kdaj.
@@ -142,17 +153,6 @@
   3. Zapisi o dodelitvi vsebujejo ime serviserja, zapisi o zavrnitvi pa razlog.
   4. Nobena vloga ne more urejati ali brisati zapisov zgodovine.
   5. Zgodovino lahko vidijo samo člani bloka, serviser pa samo za dodeljene prijave.
-
-### US-14 – Serviserjev delovni prostor
-- **Funkcionalnost:** F14 
-- **Vloga:** Serviser
-- **Zgodba:** Kot serviser želim videti svoje naloge in jih sprejeti ali zavrniti ter označiti kot odpravljene, da ni treba usklajevanja po telefonu.
-- **Acceptance criteria:**
-  1. Serviser vidi samo prijave, ki so mu dodeljene (`assignee_id` je njegov), z naslovom, lokacijo, prioriteto in opisom.
-  2. Pri prijavi `ASSIGNED` lahko nalog sprejme (status `IN_PROGRESS`).
-  3. Nalog lahko zavrne samo z razlogom; status se vrne na `NEW`, dodelitev se odstrani, razlog pa se zapiše v zgodovino.
-  4. Pri prijavi `IN_PROGRESS` lahko serviser nalog označi kot odpravljen (status `RESOLVED`) in doda komentar.
-  5. Serviser ne vidi nedodeljenih prijav in prijav, dodeljenih drugim serviserjem.
 
 ### US-15 – E-poštna obvestila
 - **Funkcionalnost:** F15
