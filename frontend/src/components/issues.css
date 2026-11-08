@@ -11,7 +11,7 @@
 .issue-card { overflow: hidden; display: flex; flex-direction: column; }
 .issue-thumb { position: relative; aspect-ratio: 16 / 9; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
 .issue-hover { position: absolute; inset: 0; padding: .9rem; background: rgba(10, 18, 24, .85); color: #fff; font-size: .875rem; opacity: 0; transition: opacity .2s; overflow: hidden; }
-.issue-hover p { margin: 0; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.issue-hover p { margin: 0; display: -webkit-box; -webkit-line-clamp: 6; line-clamp:6; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
 .issue-card:hover .issue-hover, .issue-card:focus .issue-hover, .issue-card:focus-within .issue-hover { opacity: 1; }
 .issue-body { padding: 1rem; display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
 .issue-body h3 { margin: .25rem 0 .1rem; font-size: 1.05rem; overflow-wrap: anywhere; }

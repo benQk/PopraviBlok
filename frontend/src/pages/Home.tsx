@@ -8,6 +8,7 @@ import ManagerPanel from '../components/ManagerPanel';
 import { Building2, CheckCircle2, Clock, KeyRound, XCircle } from 'lucide-react';
 import AppHeader from '../components/AppHeader';
 import BuildingIssues from '../components/BuildingIssues';
+import TechnicianIssues from '../components/TechnicianIssues';
 
 const ICONS = { pending: Clock, ok: CheckCircle2, rejected: XCircle };
 
@@ -24,6 +25,8 @@ export default function Home() {
   const managed = memberships
     .filter((m) => m.role === 'MANAGER' && m.status === 'APPROVED' && m.buildings)
     .map((m) => ({ id: m.building_id, name: m.buildings!.name }));
+
+  const isTechnician = memberships.some((m) => m.role === 'TECHNICIAN' && m.status === 'APPROVED');
 
   for (const b of requests) {
     if (b.status === 'PENDING')
@@ -89,6 +92,8 @@ export default function Home() {
           isManager={m.role === 'MANAGER'}
         />
       ))}
+
+      {isTechnician && <TechnicianIssues />}
 
       {!hasActive && (
         <section className="choices">
