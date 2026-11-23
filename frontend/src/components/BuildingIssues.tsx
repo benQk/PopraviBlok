@@ -12,7 +12,7 @@ type Rows = Awaited<ReturnType<typeof listIssues>>['rows'];
 type Props = { buildingId: string; buildingName: string; canReport: boolean; isManager: boolean };
 
 
-export default function BuildingIssues({ buildingId, buildingName, canReport, isManager }: Props) {
+export default function BuildingIssues({ buildingId, canReport, isManager }: Props) {
   const [page, setPage] = useState(0);
   const [searchInput, setSearchInput] = useState('');
   const [query, setQuery] = useState('');
