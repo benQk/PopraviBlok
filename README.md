@@ -1,5 +1,18 @@
 # PopraviBlok
 
+[![CI/CD](https://github.com/darkosever/PopraviBlok/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/darkosever/PopraviBlok/actions/workflows/ci-cd.yml)
+
+**Nameščena aplikacija:** https://darksoever-blok.netlify.app
+
+## CI/CD cevovod
+
+| Faza | Opis |
+|------|------|
+| `lint` | ESLint preveri kakovost TypeScript/React kode |
+| `build` | TypeScript + Vite zgradi frontend, `dist/` shranjen kot artefakt |
+| `test` | Vitest zažene 20 unit testov, poročilo o pokritosti shranjeno kot artefakt |
+| `deploy` | Artefakt nameščen na Netlify — samo ob pushu na `main`, po uspešnih lint+build+test |
+
 Spletna aplikacija za prijavo, obravnavo in sledenje težavam v večstanovanjskih blokih (pokvarjena luč, puščanje, okvara dvigala ...). Stanovalci težave prijavijo, upravnik jim določi prioriteto in jih dodeli serviserju, serviser jih odpravi, stanovalec pa odpravo potrdi. Vsaka sprememba se zapiše v zgodovino, zato je vedno jasno, kdo je kaj naredil in kdaj.
 
 Projekt je nastal kot naloga pri predmetu na fakulteti.
