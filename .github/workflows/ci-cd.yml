@@ -98,7 +98,10 @@ jobs:
           path: frontend/dist
 
       - name: Deploy to Netlify
-        run: npx netlify-cli deploy --dir=frontend/dist --prod
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: ./frontend/dist
+          production-deploy: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
